@@ -56,13 +56,13 @@ public class Ferry implements Runnable {
 
         
         int arriving = ThreadLocalRandom.current().nextInt(1, capacity + 1);
-        ui.log(id, "Arrived with " + arriving + "/" + capacity + " cars");
+        ui.log(id, "Przybył z  " + arriving + "/" + capacity + " samochodami na pokładzie");
         ui.updateFerryLoad(id, arriving, capacity);
 
         for (int i = 0; i < arriving; i++) {
             ui.addExitingCars(1, ui.dockEntryX());
             ui.updateFerryLoad(id, arriving - i - 1, capacity);
-            ui.log(id, "Vehicle " + (i + 1) + " left ferry");
+            ui.log(id, "Pojazd " + (i + 1) + " opuścił prom");
             Thread.sleep(300);                     
         }
 
@@ -89,7 +89,7 @@ public class Ferry implements Runnable {
 
         dock.releaseRamp();
         ui.ferryLeft(id);
-        ui.log(id, "Departing (" + onBoard.size() + "/" + capacity + ")");
+        ui.log(id, "Odpływa (" + onBoard.size() + "/" + capacity + ")");
 
         crossRiver();
     }

@@ -33,7 +33,7 @@ public class SimulationUI extends JFrame {
     private final javax.swing.Timer animTimer;
 
     public SimulationUI(java.util.List<Config.FerrySpec> specs){
-        setTitle("River Ferry Simulation");
+        setTitle("Promy na rzece");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         specs.forEach(s -> ferries.put(s.id, new FerryState(s.capacity)));
@@ -59,8 +59,8 @@ public class SimulationUI extends JFrame {
 
         exit.addActionListener(e -> {
             int opt = JOptionPane.showConfirmDialog(this,
-                    "Are you sure you want to exit?",
-                    "Exit confirmation",
+                    "Czy na pewno chcesz wyjść",
+                    "Potwierdź opuszczenie gry",
                     JOptionPane.YES_NO_OPTION);
             if(opt==JOptionPane.YES_OPTION) System.exit(0);
         });
@@ -90,9 +90,9 @@ public class SimulationUI extends JFrame {
     public void ferryWaiting(int id){ later(()->{var s=ferries.get(id);if(s!=null){s.waiting=true;s.waitingSince=System.currentTimeMillis();canvas.repaint();}});}
     public void ferryDocked(int id){ later(()->{ ferries.values().forEach(fs->fs.atDock=false); var s=ferries.get(id); if(s!=null){s.waiting=false;s.atDock=true;canvas.repaint();}});}
     public void ferryLeft(int id){ later(()->{var s=ferries.get(id);if(s!=null)s.atDock=false;canvas.repaint();});}
-    public void carArrived(Car c,int q){ later(()->{queue.add(c);log(-1,"Car "+c.id()+" arrived (queue="+q+")");canvas.repaint();});}
+    public void carArrived(Car c,int q){ later(()->{queue.add(c);log(-1,"Samochód "+c.id()+" przyjechał (w kolejce="+q+")");canvas.repaint();});}
     public void carEmbarked(Car c){ later(()->{queue.remove(c);canvas.repaint();});}
-    public void carRejected(Car c){ log(-1,"Car "+c.id()+" turned back – pier full!");}
+    public void carRejected(Car c){ log(-1,"Samochód "+c.id()+" zawrócony – przystań pełna!");}
     public void updateIncomingSpeed(int kmh){ later(()->{incomingSpeed=kmh;canvas.repaint();});}
     public void addExitingCars(int n,int x){ later(()->{for(int i=0;i<n;i++) exiting.add(new ExitingCar(x));});}
     public boolean hasExitingCars(){ synchronized(exiting){return !exiting.isEmpty();}}
@@ -131,12 +131,12 @@ public class SimulationUI extends JFrame {
 
             
             g2.setColor(Color.BLACK);
-            g2.drawString("Incoming car: "+incomingSpeed+" km/h", w-190, roadY-25);
+            g2.drawString("Nadjeżdża: "+incomingSpeed+" km/h", w-190, roadY-25);
 
             
             int dockX=w/3, dockY=(int)(h*0.45), dockW=160, dockH=14;
             g2.setColor(new Color(0x9b6a3b)); g2.fillRect(dockX,dockY,dockW,dockH);
-            g2.setColor(Color.BLACK); g2.drawString("Harbor", dockX+dockW/2-25, dockY+dockH+12);
+            g2.setColor(Color.BLACK); g2.drawString("Przystań", dockX+dockW/2-25, dockY+dockH+12);
 
             
             ferries.forEach((id,s)->{ if(s.atDock) drawFerry(g2,id,s,dockX+10,dockY-40); });
@@ -158,7 +158,7 @@ public class SimulationUI extends JFrame {
             g2.setColor(Color.WHITE); g2.fillRect(x,y,120,30);
             g2.setColor(Color.BLUE.darker()); g2.drawRect(x,y,120,30);
             g2.setFont(g2.getFont().deriveFont(11f));
-            g2.drawString("Ferry "+id,x+5,y+12);
+            g2.drawString("Prom "+id,x+5,y+12);
             g2.drawString(s.load+"/"+s.capacity,x+5,y+24);
         }
         private void drawFerryWaiting(Graphics2D g2,int id,FerryState s,int x,int y,int pos){
@@ -168,8 +168,8 @@ public class SimulationUI extends JFrame {
             g2.setStroke(new BasicStroke(1.5f,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,1f,dash,0f));
             g2.drawRect(x,y,120,30); g2.setStroke(old);
             long w=(System.currentTimeMillis()-s.waitingSince)/1000;
-            g2.drawString("Queue "+pos, x+5, y+10);
-            g2.drawString("Ferry "+id+" ("+w+"s)", x+5, y+24);
+            g2.drawString("Kolejka "+pos, x+5, y+10);
+            g2.drawString("Prom "+id+" ("+w+"s)", x+5, y+24);
         }
     }
 }
