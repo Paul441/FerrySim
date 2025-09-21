@@ -1,4 +1,4 @@
-package com.example;
+package org.example;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,7 +97,7 @@ public class SimulationUI extends JFrame {
     public void addExitingCars(int n,int x){ later(()->{for(int i=0;i<n;i++) exiting.add(new ExitingCar(x));});}
     public boolean hasExitingCars(){ synchronized(exiting){return !exiting.isEmpty();}}
     public int dockEntryX(){ return getWidth()/3 + 10; }
-    public void log(int fid,String msg){ later(()->{String tag=fid>=0?"[F"+fid+"] ":"[SYS] ";logArea.append(tag+msg+System.lineSeparator());logArea.setCaretPosition(logArea.getDocument().getLength());});}
+    public void log(int fid,String msg){ later(()->{String tag=fid>=0?"[Prom "+fid+"] ":"";logArea.append(tag+msg+System.lineSeparator());logArea.setCaretPosition(logArea.getDocument().getLength());});}
 
     
     private class DrawPanel extends JPanel{

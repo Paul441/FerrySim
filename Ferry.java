@@ -1,7 +1,7 @@
 
 
 
-package com.example;
+package org.example;
 
 import java.time.Duration;
 import java.time.Instant;

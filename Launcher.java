@@ -1,4 +1,4 @@
-package com.example;
+package org.example;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

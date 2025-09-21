@@ -1,4 +1,4 @@
-package com.example;
+package org.example;
 
 
 public record Car(long id, long arrivalEpochMillis) {
