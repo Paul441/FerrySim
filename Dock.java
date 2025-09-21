@@ -24,7 +24,7 @@ public class Dock {
     }
     public void releaseRamp() { ramp.release(); }
 
-//usuwa samochód najdłużej czekający
+
     public Car pollOldestCar() {
         synchronized (waitingCars) {              
             Car oldest = null;
